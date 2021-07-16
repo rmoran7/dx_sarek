@@ -2498,7 +2498,7 @@ bamPileupSummaries = bamPileupSummaries.dump(tag:'Mutect2 Pileup Summaries')
 process PileupSummariesForMutect2 {
     tag "${idSample}-${intervalBed.baseName}"
 
-    label 'process_low'
+    label 'process_medium'
 
     input:
         set idPatient, idSample, file(bamTumor), file(baiTumor), file(intervalBed), file(statsFile) from bamPileupSummaries
@@ -2527,7 +2527,7 @@ pileupSummaries = pileupSummaries.groupTuple(by:[0,1])
 // STEP GATK MUTECT2.4 - MERGING PILEUP SUMMARIES
 
 process MergePileupSummaries {
-    label 'process_low'
+    label 'process_medium'
 
     tag "${idSample}"
 
@@ -2556,7 +2556,7 @@ process MergePileupSummaries {
 // STEP GATK MUTECT2.5 - CALCULATING CONTAMINATION
 
 process CalculateContamination {
-    label 'process_low'
+    label 'process_medium'
 
     tag "${idSample}"
 
@@ -2589,7 +2589,7 @@ mutect2CallsToFilter = vcfConcatenatedForFilter.map{
 }.join(mergedStatsFile, by:[0,1]).join(contaminationTable, by:[0,1])
 
 process FilterMutect2Calls {
-    label 'process_low'
+    label 'process_medium'
 
     tag "${idSample}"
 
